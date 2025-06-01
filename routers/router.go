@@ -8,19 +8,13 @@ import (
 
 func SetupRouter() *mux.Router {
 	router := mux.NewRouter()
+
+	// Sub-rotas registradas no mesmo router
 	SetupRouterUsuario(router)
-
-	router.PathPrefix("/").Handler(
-		http.StripPrefix("/", http.FileServer(
-			http.Dir("./static/"))))
-
-	return router
-}
-
-func SetupRouterMatheus() *mux.Router {
-	router := mux.NewRouter()
 	SetupRouterVendedor(router)
+	SetupRouterTime(router)
 
+	// Rota estática
 	router.PathPrefix("/").Handler(
 		http.StripPrefix("/", http.FileServer(
 			http.Dir("./static/"))))
